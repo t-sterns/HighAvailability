@@ -1,0 +1,89 @@
+﻿
+
+
+.container-fluid{
+    margin:0;
+}
+
+.container-fluid .row{
+    margin:0;
+}
+
+.jumbotron{
+    height:700px;
+    margin-bottom: 0px;
+    background-color: black;
+    background-image: url(Images/clouds.jpg);
+    background-repeat: no-repeat;
+    margin-top:0;
+   
+}
+
+.HATitle{
+    text-align: center;
+    color:white;
+}
+
+.HATitle a:link,
+.HATitle a:active,
+.HATitle a:visited{
+    color:white; 
+    text-decoration:none;
+}
+
+.HATitle a:hover{
+    color:lightblue; 
+    text-decoration:none;
+}
+
+
+.jumbotron h1 {
+    font-family: 'Century Gothic';
+}
+
+.jumbotron h2{
+    color:darkblue;
+   font-family: 'Century Gothic';
+}
+
+.jumbotron h3 {
+    font-family: 'Century Gothic';
+}
+
+.jumbotron h4 {
+    font-family: 'Century Gothic';
+}
+
+.significant{
+    color:orange;
+}
+
+
+
+.form-control{
+    width: 400px;
+}
+
+.inputholder{
+    
+    text-align:center;
+    width:400px;
+    margin: 0 auto;
+}
+
+#addSite{
+    width:200px;
+}
+
+.panel-heading{
+    background-color:lightblue;
+}
+
+.playbutton {
+    width:140px;
+    text-align:left;
+}
+
+.centercol{
+    text-align:center;
+}

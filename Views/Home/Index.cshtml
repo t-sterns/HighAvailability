@@ -1,0 +1,754 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="container-fluid">
+    <div class="jumbotron">
+        <div class="HATitle">
+            <br />
+            <br />
+
+            <h1>How <span class="significant">Resilient </span>is your Web Site?</></h1>
+            <h2><i>Make sure your Azure Web Site is built to ensure high availability for all your users</i></h2>
+            <br />
+            
+
+            <h4 class="HATitle">If you have not installed the High Availability WebAPI site extention, <a id="clickfordirections" href="#accordion">click here.</a> </h4>
+            <h4>Otherwise, Enter your site URL here to see if it passes the test:</h4>
+        </div>
+        <div class="inputholder">
+            
+
+
+            <input type="text" class="form-control input-lg" id="siteToAdd" value="https://haapi.azurewebsites.net">
+            <br />
+            <a  class="btn btn-warning btn-lg" id="addSite">Add Site</a>
+        </div>
+        <br />
+        <div class="HATitle">
+            <h3>Not using Microsoft Azure? <a href="http://azure.microsoft.com/en-us/">Learn more here</a> </h3>
+        </div>
+
+       
+
+    </div>
+</div>
+<br />
+<div class="container body-content">
+    <div>
+
+        <!--Modal for prompting for username and password-->
+        <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Site Owner Authentication</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Please enter the publishing credentials for your web site: </p>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input type="email" class="form-control" id="username" value="$haapi">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password*</label>
+                            <input type="password" class="form-control" id="password" value="MpuxyXt8Xtyxh4n46zuCa5jN1YKTZzt5rr9HzDtffXhkonokk68v5lBXiQ6t">
+                        </div>
+                        <p>
+                            *login information is not saved
+                        </p>
+                        <div class="alert alert-danger" id="authalert" role="alert">
+                            <a href="#" class="alert-link">Authorization Failed. Please Reenter.</a>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"  id="authbutton">Verify</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" disabled id="submitmodal">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Directions Collapsable-->
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:lightblue">
+                    <h4 class=" panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#extensionDirections">
+                        Click Here for directions on how to install High Availability Site Extension that is required for use of this tool
+                    </a>
+                    </h4>
+                </div>
+                <div id="extensionDirections" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                        <ul class="nav nav-tabs" role="tablist" id="directionTabs">
+                            <li class="active"><a href="#directionsPortal" role="tab" data-toggle="tab">Install via Azure Portal</a></li>
+                            <li><a href="#directionsScm" role="tab" data-toggle="tab">Install via SCM site</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="directionsPortal">
+                                <div>
+                                    <h3>Adding the High Availability Site Extension using the Azure Portal</h3>
+                                    <div style="padding-top: 10px; padding-left: 20px">
+                                        <h4><i><b>Step 1:</b></i> Go to <a href="http://portal.azure.com" target="_blank">http://portal.azure.com</a></h4>
+                                        <h4><i><b>Step 2:</b></i> Log in to you Azure Account </h4>
+                                        <h4><i><b>Step 3:</b></i> On the right panel go to <i>Browse</i> and then <i>Websites</i></h4>
+                                        <div style="text-align:center">
+                                            <img src="~/Content/Images/browse_websites.jpg" />
+                                        </div>
+                                        <br />
+                                        <h4><i><b>Step 4:</b></i> Find and click on the site you would like to test in the new <i>Websites</i> pane that is displayed</h4>
+                                        <h4><i><b>Step 5:</b></i> Find the <i>Configuration</i> Section and click on <i>Extensions</i></h4>
+                                        <div style="text-align:center">
+                                            <img src="~/Content/Images/Configuration_Extensions.jpg" />
+                                        </div>
+                                        <br />
+                                        <h4><i><b>Step 6:</b></i> In the Installed site extensions tab click the blue plus in the top left corner</h4>
+                                        <div style="text-align:center">
+                                            <img src="~/Content/Images/installed_extensions.jpg" />
+                                        </div>
+                                        <br />
+                                        <h4><i><b>Step 7:</b></i> Select <i>High Availability Tool</i> and click <i>select</i></h4>
+                                        <h4><i><b>Step 8:</b></i> Click <i>OK</i> and the site extention will install</h4>
+                                        <h4 style="color:darkblue"><i><b>Step 9:</b></i> You may now use this tool to test your web site for High Availability! Enter your site url above!</h4>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="directionsScm">
+                                <div>
+                                    <h3>Adding the High Availability Site Extension using your own site's scm site</h3>
+                                    <div style="padding-top: 10px; padding-left: 20px">
+                                        <h4><i><b>Step 1:</b></i> Go to your site and add add scm into the url for example: <i>http://sample.scm.azurewebsites.net</i></h4>
+                                        <div style="text-align:center">
+                                            <img src="~/Content/Images/urlexample.jpg" />
+                                        </div>
+                                        <br />
+                                        <h4><i><b>Step 2:</b></i> Click on <i>Site Extensions</i> in the header menu</h4>
+                                        <h4><i><b>Step 3:</b></i> It will display all of your installed site extensions. To add a new site extension click the gallery tab</h4>
+                                        <div style="text-align:center">
+                                            <img src="~/Content/Images/gallerytab.jpg" />
+                                        </div>
+                                        <br />
+                                        <h4><i><b>Step 4:</b></i> Find the High Availability Tool and click the blue plus button to add it to your site</h4>
+                                        <h4><i><b>Step 5:</b></i> Click <i>Restart Site</i> as directed to make the site extension active on your site</h4>
+                                        <h4 style="color:darkblue"><i><b>Step 6:</b></i> You may now use this tool to test your web site for High Availability! Enter your site url above!</h4>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+         </div>
+         <br />
+        <!--end of directions collapsable-->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Web Sites To Test</h3>
+                </div>
+                <div class="panel-body" id="siteList">
+
+                </div>
+            </div>
+
+            <div class="alert alert-danger" role="alert" id="testrunalert">
+                <a href="#" class="alert-link" id="testrunalertmessage"></a>
+            </div>
+
+
+        <!--Test Table-->
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width:40%">Test</th>
+                        <th style=" width:20%" class="centercol">
+                            <button class="btn btn-primary btn-xs" type="button" id="playAll">Run All</button>
+                        </th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody id="tablebody">
+                    <!----------------------------------------CPU TEST------------------------------------------------------>
+                    <tr>
+                        <td>
+                            Test 1: CPU Burn <button class="btn btn-xs btn-standard" type="button" id="question_cpu" data-toggle="popover" title="CPU Burn Test"
+                                data-content="This test shows how your site will perform under high CPU usage" data-placement="top">
+                             <span class="glyphicon glyphicon-question-sign"></span></button>
+                        </td>
+                        <td class="centercol">
+                            <button class="btn btn-xs btn-info" type="button" id="burn"><span class="glyphicon glyphicon-play"></span></button>
+                        </td>
+                        <td>
+                            <div>
+                                <div class="progress" style="width: 70%; float:left">
+                                    <div id="burnresult" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                                </div>
+                                <div style="float:right">
+                                    <a data-toggle="modal" href="#cpuModal" class="btn btn-default btn-xs disabled" id="cpuTestInfo"><span class="glyphicon glyphicon-info-sign"></span> View Results</a>
+                                </div>
+
+                            </div>
+
+
+                            <div class="modal fade" id="cpuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title">CPU Test Results</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="cpuModalBody">
+
+                                            </div>
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Metric</th>
+                                                        <th>Expected</th>
+                                                        <th>Observed</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="cpuStatBody"></tbody>
+                                            </table>
+                                            <br />
+                                            <div id="cpuModalText">
+
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!----------------------------------------MEMORY TEST------------------------------------------------------>
+                        <td>Test 2:  Memory Test
+                            <button class="btn btn-xs btn-standard" type="button" id="question_mem" data-toggle="popover" title="CPU Burn Test"
+                                    data-content="This test shows how your site will perform with access to limited memory" data-placement="top">
+                                <span class="glyphicon glyphicon-question-sign"></span>
+                            </button>
+                        </td>
+                        <td class="centercol">
+                            <button class="btn btn-xs btn-info" type="button" id="memory"><span class="glyphicon glyphicon-play"></span></button>
+                        </td>
+                        <td>
+                            <div>
+                                <div class="progress" style="width: 70%; float:left">
+                                    <div id="memresult" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                                </div>
+                                <div style="float:right">
+                                    <a data-toggle="modal" href="#memModal" class="btn btn-default btn-xs disabled" id="memTestInfo"><span class="glyphicon glyphicon-info-sign"></span> View Results</a>
+                                </div>
+
+                            </div>
+
+
+                            <div class="modal fade" id="memModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title">Memory Test Results</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="memModalBody">
+
+                                            </div>
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Metric</th>
+                                                        <th>Expected</th>
+                                                        <th>Observed</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="memStatBody"></tbody>
+                                            </table>
+                                            <br />
+                                            <div id="memModalText">
+
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="color:lightgrey">
+                        <!----------------------------------------SERVER CRASH TEST------------------------------------------------------>
+                        <td>Test 3: Server Crash</td>
+                        <td class="centercol">
+                            <button class="btn btn-xs btn-info disabled" type="button" id="w3wp" disabled><span class="glyphicon glyphicon-play"></span></button>
+                        </td>
+                        <td><i>Coming Soon</i></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var burnCount = 1;
+
+        var running = false;
+        var sites = [];
+        var cpuGraphData;
+        var username, password;
+
+        $('.alert').hide();
+        $("#question_cpu").popover('hide');
+        $("#question_mem").popover('hide');
+
+        $("#question_cpu").click(function () {
+            $("#question_cpu").popover();
+        });
+
+        $("#question_mem").click(function () {
+            $("#question_mem").popover();
+        });
+
+        function graphData(lat, suc) {
+            var latency = [], success = [];
+
+            for (var i = 0; i < lat.length; i++) {
+                latency.push({ x: i, y: lat[i] })
+                success.push({ x: i, y: suc[i] })
+            }
+
+            return [
+          {
+              values: latency,      //values - represents the array of {x,y} data points
+              key: 'Latency', //key  - the name of the series.
+              color: '#117dbb',
+              area: true
+          },
+          {
+              values: success,
+              key: 'Success Rate',
+              color: 'rgba(145, 0, 255, 0.50)',
+              area: true
+
+          }
+            ];
+        }
+
+        $("#authbutton").click(function () {
+            var site = $("#siteToAdd").val();
+            username = $("#username").val();
+            password = $("#password").val();
+            
+            $.ajax({
+                url: "/Home/ConfirmSite",
+                type: "POST",
+                traditional: true,
+                data: {
+                    site: site,
+                    username: username,
+                    password: password
+                },
+                dataType: "json",
+                success: function (message) {
+                    if (message === "VALID") {
+                        
+                        sites.push($("#siteToAdd").val());
+                        var siteListing = $("<i>").html(site);
+                        $("#siteList").append(siteListing).append("<br />");
+                        $("#siteToAdd").val("");
+                        $("#submitmodal").removeAttr("disabled");
+                        $("#submitmodal").removeClass("btn-default");
+                        $("#submitmodal").addClass("btn-success");
+                    }
+                    else {
+                        $("#authalert").child.html(message);
+                        $("#authalert").show();
+                    }
+                }
+
+            });
+            
+            
+        })
+        
+        var duration = {
+            //for now only controls speed of the progress bars
+            cpu: 1.25,
+            mem: 1.25
+        }
+
+        var successStatus = {
+            cpu: true,
+            mem: true
+        }
+
+        //NOT USED check if CPU test completed. Called by runCPU
+        var checkCPU = function () {
+            finished = false;
+            var interval = setInterval(function () {
+                $.ajax({
+                    url: "/Home/checkCPUSuccess",
+                    type: "POST",
+                    success: function (success) {
+                        if (success === "SUCCESS") {
+                            /*$("#burnresult").attr("style", "width: 100%");
+                            $("#burnresult").attr("class", "progress-bar progress-bar-success");
+                            $("#burnresult").attr("aria-valuenow", "100");
+                            $("#burnresult").html("Successfully Completed");
+                            $("#cpuInfo").removeClass("disabled")
+                            $("#cpuInfo").removeAttr("disabled");
+                            $("#cpuInfo").popover({
+                                placement: 'top',
+                                trigger: 'click',
+                                title: 'latency',
+                                content: DrawLineChart("graph", cpuGraphData)
+                            });*/
+                            finished = true;
+                        }
+                        
+                        
+                        // var endBurn = $('<td>').html("<- Burn " + burnCount + " End Here").css("color", "blue");
+                        // $("#records tr:last").append(startBurn);
+                    }
+
+                });
+                if (finished) {
+                    clearInterval(interval);
+                }
+            }, 2000);
+
+        }
+
+        //NOT USED check if Memory test completed. Called by runMemory
+        var checkMem = function () {
+            finished = false;
+            var interval = setInterval(function () {
+                $.ajax({
+                    url: "/Home/checkCPUSuccess",
+                    type: "POST",
+                    success: function (success) {
+                        if (success === "SUCCESS") {
+                            $("#memresult").attr("style", "width: 100%");
+                            $("#memresult").attr("class", "progress-bar progress-bar-success");
+                            $("#memresult").attr("aria-valuenow", "100");
+                            $("#memresult").html("Successfully Completed");
+                            finished = true;
+                        }
+
+
+                        // var endBurn = $('<td>').html("<- Burn " + burnCount + " End Here").css("color", "blue");
+                        // $("#records tr:last").append(startBurn);
+                    }
+
+                });
+                if (finished) {
+                    clearInterval(interval);
+                }
+            }, 5000);
+
+        }
+
+        //controls progress of cpu progress bar. Called by runCPU
+        var cpuProgress = function (duration) {
+            var intLength = 500;
+            var maxCount = duration * 60 * 1000 / intLength;
+            var count = 0;
+            var interval = setInterval(function () {
+                //alert(count / maxCount * 100);
+                $("#burnresult").attr("style", "width: "+count/maxCount*100 +"%");
+                $("#burnresult").attr("aria-valuenow", count/maxCount*100);
+                if (count >= maxCount || successStatus.cpu == false) {
+                    clearInterval(interval);
+                }
+                count++;
+            }, intLength);
+        }
+
+        //controls progress of cpu progress bar. Called by runMemory
+        var memoryProgress = function (duration) {
+            var intLength = 500;
+            var maxCount = duration * 60 * 1000 / intLength;
+            var count = 0;
+            var interval = setInterval(function () {
+                //alert(count / maxCount * 100);
+                $("#memresult").attr("style", "width: " + count / maxCount * 100 + "%");
+                $("#memresult").attr("aria-valuenow", count / maxCount * 100);
+                if (count >= maxCount || successStatus.mem == false) {
+                    clearInterval(interval);
+                }
+                count++;
+            }, intLength);
+        }
+
+        var runAll = function () {
+            resetAll();
+            runCPU();
+           
+            setTimeout(runMemory, duration.cpu * 60 * 1000);
+        }
+
+        var runCPU = function () {
+             running = true;
+             resetCPU();
+             cpuProgress(duration.cpu);
+             $.ajax({
+                 url: "/Home/RunCPUTest",
+                 type: "POST",
+                 //contentType: "application/json; charset=utf-8",
+                 traditional: true,
+                 data: {
+                     sites: sites,
+                     username: username,
+                     password: password},
+                 dataType: "json",
+                 success: function (testresult) {
+                     if (testresult === "FAIL") {
+                         successStatus.cpu = false;
+                         $('#testrunalert').show();
+                         $('#testrunalertmessage').html("Unable to start fault injection. Please retry test.");
+                     }
+                     else {
+                         testFinish(testresult, $("#burnresult"), $("#cpuStatBody"), "cpuModalBody", $("#cpuTestInfo"), $("#cpuModalText"));
+                     }
+                     running = false;
+                 }
+
+             });
+         }
+
+        var runMemory = function () {
+             running = true;
+             resetMem();
+             memoryProgress(duration.mem);
+             $.ajax({
+                 url: "/Home/RunMemoryTest",
+                 type: "POST",
+                 traditional: true,
+                 data: {
+                     sites: sites,
+                     username: username,
+                     password: password
+                },
+                 dataType: "json",
+                 success: function (testresult) {
+                     if (testresult === "FAIL") {
+                         successStatus.cpu = false;
+                         $('#testrunalert').show();
+                         $('#testrunalertmessage').html("Unable to start fault injection. Please retry test.");
+                     }
+                     else {
+                         testFinish(testresult, $("#memresult"), $("#memStatBody"), "memModalBody", $("#memTestInfo"), $("#memModalText"));
+                     }
+                     running = false;
+                 }
+             });
+         }
+
+         function testFinish(testresult, progressBar, statbody, graphLoc, testInfoButton, textExp) {
+             GraphData = graphData(testresult.latency, testresult.successRate);
+             //DrawLineChart("graph", cpuGraphData)
+             progressBar.attr("style", "width: 100%");
+             progressBar.attr("aria-valuenow", "100");
+             DrawLineChart(graphLoc, GraphData);
+             //$("#cpuModalBody").append($("<p>").html(testresult.explaination));
+             statbody.append($('<tr>').append($('<td>').html("HTTP Request Latency")).append($('<td>').html(testresult.averageNoFaultLatency.toFixed(1) + " ms")).append($('<td>').html(testresult.averageFaultLatency.toFixed(1) + " ms")));
+             statbody.append($('<tr>').append($('<td>').html("HTTP Request Success Rate")).append($('<td>').html(testresult.averageNoFaultSuccessRate.toFixed(1) + "%")).append($('<td>').html(testresult.averageFaultSuccessRate.toFixed(1) + "%")));
+             textExp.append($("<p>").html(testresult.reccomendation));
+             if (testresult.resultCode === "SUCCESS") {
+                 progressBar.attr("class", "progress-bar progress-bar-success");
+                 progressBar.html("Successfully Completed");
+             }
+             else if (testresult.resultCode === "WARNING") {
+                 progressBar.attr("class", "progress-bar progress-bar-warning");
+                 progressBar.html("Completed with Warning");
+             }
+             else {
+                 progressBar.attr("class", "progress-bar progress-bar-danger");
+                 progressBar.html("Completed with Failure");
+             }
+             testInfoButton.removeClass("disabled");
+         }
+
+         var resetAll = function () {
+             resetCPU();
+             resetMem();
+         }
+
+         var resetCPU = function () {
+             successStatus.cpu = true;
+             $("#burnresult").attr("style", "width: 0%");
+             $("#burnresult").attr("class", "progress-bar progress-bar-info");
+             $("#burnresult").attr("aria-valuenow", "0");
+             $("#burnresult").html("");
+             $("#cpuTestInfo").addClass("disabled");
+             $("#cpuModalBody").html("");
+             $("#cpuStatBody").html("");
+             $("#cpuModalText").html("");
+         }
+
+         var resetMem = function () {
+             successStatus.mem = true;
+             $("#memresult").attr("style", "width: 0%");
+             $("#memresult").attr("class", "progress-bar progress-bar-info");
+             $("#memresult").attr("aria-valuenow", "0");
+             $("#memresult").html("");
+             $("#memTestInfo").addClass("disabled");
+             $("#memModalBody").html("");
+             $("#memStatBody").html("");
+             $("#memModalText").html("");
+         }
+
+
+         $("#playAll").click(function () {
+             if (running) {
+                 $('#testrunalert').show();
+                 $('#testrunalertmessage').html("Please wait for current test(s) to complete. You cannout run tests simultaneously.");
+             }
+             else if (sites.length === 0) {
+                 $('#testrunalert').show();
+                 $('#testrunalertmessage').html("Must enter at least one site URL in order to start test.");
+             }
+             else {
+                 $('.alert').hide();
+                 runAll();
+             }
+            
+        });
+
+
+         $("#burn").click(function () {
+             if (running) {
+                 $('#testrunalert').show();
+                 $('#testrunalertmessage').html("Please wait for current test(s) to complete. You cannout run tests simultaneously.");
+             }
+             else if (sites.length === 0) {
+                $('#testrunalert').show();
+                $('#testrunalertmessage').html("Must enter at least one site URL in order to start test.");
+            }
+            else {
+                $('.alert').hide();
+                runCPU();
+            }
+        });
+
+        $("#memory").click(function () {
+            if (running) {
+                $('#testrunalert').show();
+                $('#testrunalertmessage').html("Please wait for current test(s) to complete. You cannout run tests simultaneously.");
+            }
+            else if (sites.length === 0) {
+                $('#testrunalert').show();
+                $('#testrunalertmessage').html("Must enter at least one site URL in order to start test.");
+            }
+            else {
+                $('.alert').hide();
+                runMemory();
+            }
+        });
+
+        $("#addSite").click(function (e) {
+            e.preventDefault();
+            if (running) {
+                $('#testrunalert').show();
+                $('#testrunalertmessage').html("Please wait for current test(s) to complete. You cannout add target sites while tests are running.");
+            }
+            else if ($("#siteToAdd").val().length < 1) {
+                alert("Please enter a site url");
+            }
+            else {
+                $("#authModal").modal('show');
+            }
+        })
+
+        $('.alert').click(function (e) {
+            e.preventDefault()
+            $('.alert').hide();
+        });
+
+        $("#w3wp").click(function () {
+            var run = new runTests();
+            run.runW3wp();
+        });
+
+
+        $('#directionTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        });
+
+        $('#clickfordirections').click(function (e) {
+            e.preventDefault()
+            $("#extensionDirections").collapse('show')
+
+            setTimeout(window.scrollTo(0, 700), 0);
+        });
+
+        $("#submitmodal").click(function () {
+            $("#submitmodal").attr("disabled", "disabled");
+            $("#authModal").modal('hide');
+        });
+
+        function sleep(ms) {
+            var dt = new Date();
+            dt.setTime(dt.getTime() + ms);
+            while (new Date().getTime() < dt.getTime());
+        }
+
+
+
+    });
+
+</script>
+
+
+
+<!--
+    <div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>
+    -->
